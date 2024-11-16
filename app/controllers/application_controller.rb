@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  layout -> { ApplicationLayout.new(alert: alert, notice: notice) }
+  layout -> { ApplicationLayout.new(user: Current.user, alert: alert, notice: notice) }
 
   # allow_browser versions: :modern
 

@@ -5,8 +5,10 @@ class ApplicationLayout < ApplicationView
   include Phlex::Rails::Helpers::ContentFor
 
   attr_reader :alert, :notice
+  attr_accessor :user
 
-  def initialize(alert: nil, notice: nil)
+  def initialize(user: nil,  alert: nil, notice: nil)
+    @user = user
     @alert = alert
     @notice = notice
   end
@@ -14,7 +16,7 @@ class ApplicationLayout < ApplicationView
   def view_template()
     html do
       head do
-        title { title }
+        title { "ProClasse" }
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
         meta(name: "apple-mobile-web-app-capable", content: "yes")
         meta(name: "mobile-web-app-capable", content: "yes")
@@ -32,7 +34,7 @@ class ApplicationLayout < ApplicationView
         javascript_importmap_tags
       end
       body do
-        render ProNavBarComponent
+        render ProNavBarComponent.new(user: user)
         main(class: "max-w-5xl mx-auto mt-14 px-4") {
           p { notice }
           p { alert }

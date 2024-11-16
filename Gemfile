@@ -12,10 +12,12 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "jbuilder"
 gem "phlex-rails"
-
 # gem "phlexy_ui", git: "https://github.com/TopRoupi/phlexy_ui"
 # gem "phlexy_ui", path: "../phlexy_ui"
 gem "phlexy_ui", "~> 0.1.18"
+gem "superform", git: "https://github.com/rubymonolith/superform"
+gem "authentication-zero", "~> 4.0"
+
 
 gem "pg", "~> 1.1"
 gem "solid_cache"
@@ -28,6 +30,8 @@ gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :development, :test do
+  gem "database_consistency", require: false
+  gem "annotaterb"
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
@@ -41,6 +45,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "superform", git: "https://github.com/rubymonolith/superform"
-gem "authentication-zero", "~> 4.0"

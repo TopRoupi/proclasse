@@ -16,10 +16,18 @@ class Registrations::Form < ApplicationForm
       error_messages
 
       labeled(
+        field(:name).input(
+          required: true,
+          autofocus: true,
+          autocomplete: "name"
+        ),
+        "Nome"
+      )
+
+      labeled(
         field(:email).input(
           type: :email,
           required: true,
-          autofocus: true,
           autocomplete: "email"
         ),
         "Email"
