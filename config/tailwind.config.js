@@ -1,11 +1,16 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+const execSync = require("child_process").execSync;
+const outputPhlexyUI = execSync("bundle show phlexy_ui", { encoding: "utf-8" });
+const phlexyUIPath = outputPhlexyUI.trim() + "/**/*.rb";
+
 module.exports = {
   content: [
     './public/*.html',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
-    './app/views/**/*.{erb,haml,html,slim}'
+    './app/views/**/*.{erb,haml,html,slim,rb}',
+    phlexyUIPath,
   ],
   theme: {
     extend: {
@@ -28,14 +33,14 @@ module.exports = {
             "success": "#1ef02e",
             "warning": "#eee953",
             "error": "#d04e41",
-            "--rounded-box": "0.75rem",
-            "--rounded-btn": ".25rem",
-            "--rounded-badge": ".25rem",
-            "--animation-btn": "0",
-            "--animation-input": "0",
-            "--btn-text-case": "normal",
-            "--btn-focus-scale": "1",
-            "--tab-radius": "0",
+            // "--rounded-box": "0.75rem",
+            // "--rounded-btn": ".25rem",
+            // "--rounded-badge": ".25rem",
+            // "--animation-btn": "0",
+            // "--animation-input": "0",
+            // "--btn-text-case": "normal",
+            // "--btn-focus-scale": "1",
+            // "--tab-radius": "0",
           },
         },
       ],

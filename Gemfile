@@ -12,6 +12,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "jbuilder"
 gem "phlex-rails"
+gem "phlexy_ui", "~> 0.1.18"
 
 gem "pg", "~> 1.1"
 gem "solid_cache"
