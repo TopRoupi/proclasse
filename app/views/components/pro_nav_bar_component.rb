@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class ProNavBarComponent < ApplicationComponent
+  include Phlex::Rails::Helpers::LinkTo
+
   def view_template
-    Navbar(:base_200, class: "shadow-xl") { |navbar|
+    Navbar(:base_200, class: "shadow-md") { |navbar|
       div(class: "flex max-w-5xl w-full mx-auto") {
         navbar.start {
-          Button(:ghost, class: "text-xl") {"PC"}
+          link_to(home_index_path) {
+            Button(:ghost, class: "text-xl") {"PC"}
+          }
 
           Menu(:horizontal, class: "px-1") { |menu|
             menu.item {
@@ -30,8 +34,7 @@ class ProNavBarComponent < ApplicationComponent
       }
 
       dropdown.menu(:base_100, class: "rounded-box w-52 shadow") { |menu|
-        menu.item { a { "Item 1" } }
-        menu.item { a { "Item 2" } }
+        menu.item { link_to("Login", sign_in_path) }
       }
     }
   end

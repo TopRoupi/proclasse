@@ -22,7 +22,7 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.7"
 # gem "image_processing", "~> 1.2"
 gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -41,3 +41,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "superform", git: "https://github.com/rubymonolith/superform"
+gem "authentication-zero", "~> 4.0"

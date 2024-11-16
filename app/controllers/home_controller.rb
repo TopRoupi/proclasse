@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  layout false
+  skip_before_action :authenticate
 
   def index
     render Home::IndexView.new
