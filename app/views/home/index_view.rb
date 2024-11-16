@@ -2,10 +2,12 @@
 
 class Home::IndexView < ApplicationView
   def view_template
-    h1 { "Home::Index" }
-    p { "dwadawdwaddwad" }
-    Button :primary do
-      "Hello, world!"
+    render LayoutComponent.new do
+      h1 { "Home::Index" }
+      p { "dwadawdwaddwawwwwwwwwd" }
+      Button :primary do
+        "Hello, world!"
+      end
     end
   end
 end

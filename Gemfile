@@ -12,6 +12,9 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "jbuilder"
 gem "phlex-rails"
+
+# gem "phlexy_ui", git: "https://github.com/TopRoupi/phlexy_ui"
+# gem "phlexy_ui", path: "../phlexy_ui"
 gem "phlexy_ui", "~> 0.1.18"
 
 gem "pg", "~> 1.1"

@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
-class ApplicationLayout < ApplicationView
-  include Phlex::Rails::Layout
+class LayoutComponent < ApplicationComponent
+  # include Phlex::Rails::Layout
   include Phlex::Rails::Helpers::ContentFor
+  include Phlex::Rails::Helpers::CSRFMetaTags
+  include Phlex::Rails::Helpers::CSPMetaTag
+  include Phlex::Rails::Helpers::StylesheetLinkTag
+  include Phlex::Rails::Helpers::JavascriptImportmapTags
 
-  def view_template
+  def view_template(title: "Proclasse")
     html do
       head do
-        title { content_for(:title) || "Proclasse" }
+        title { title }
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
         meta(name: "apple-mobile-web-app-capable", content: "yes")
         meta(name: "mobile-web-app-capable", content: "yes")
         csrf_meta_tags
         csp_meta_tag
-        plain yield :head
         # = tag.link rel: "manifest", href: pwa_manifest_path(format: :json)
         link(rel: "icon", href: "/icon.png", type: "image/png")
         link(rel: "icon", href: "/icon.svg", type: "image/svg+xml")
@@ -26,10 +29,10 @@ class ApplicationLayout < ApplicationView
         javascript_importmap_tags
       end
       body do
-        main(class: "container mx-auto mt-28 px-5") do
-          render ProNavBarComponent
-          plain yield
-        end
+        render ProNavBarComponent
+        main(class: "max-w-5xl mx-auto mt-8 px-4") {
+          yield
+        }
       end
     end
   end

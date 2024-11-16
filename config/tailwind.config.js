@@ -24,9 +24,14 @@ module.exports = {
         {
           uwu: {
             "primary": "#a6a758",
+            "primary-content": "#0a0a03",
             "secondary": "#74d8f6",
             "accent": "#4d7fea",
+            "accent-content": "#010512",
+            "base-content": "#161611",
             "base-100": "#ffffdc",
+            "base-200": "#ffffb8",
+            "base-300": "#ffff94",
             "neutral": "#909dad",
             "neutral-focus": "#343232",
             "info": "#006ed4",
@@ -38,7 +43,7 @@ module.exports = {
             // "--rounded-badge": ".25rem",
             // "--animation-btn": "0",
             // "--animation-input": "0",
-            // "--btn-text-case": "normal",
+            "--btn-text-case": "normal",
             // "--btn-focus-scale": "1",
             // "--tab-radius": "0",
           },
