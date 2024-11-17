@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resource :example, constraints: -> { Rails.env.development? }
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   post "change_context", to: "sessions#change_context"
