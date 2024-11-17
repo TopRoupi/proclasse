@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_current_user
-      if session_record = Session.find_by_id(cookies.signed[:session_token])
+      if session_record = Session.eager_load(user: [:professor, :student]).find_by_id(cookies.signed[:session_token])
         Current.session = session_record
       end
     end

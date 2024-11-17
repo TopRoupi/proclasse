@@ -2,7 +2,8 @@
 #
 # Table name: users
 #
-#  id              :bigint           not null, primary key
+#  id              :uuid             not null, primary key
+#  context         :integer
 #  email           :string           not null
 #  name            :string           not null
 #  password_digest :string           not null
@@ -15,6 +16,11 @@
 #  index_users_on_email  (email) UNIQUE
 #
 class User < ApplicationRecord
+  has_one :professor, required: false
+  has_one :student, required: false
+
+  enum :context, [:student, :professor], default: :student
+
   has_secure_password
 
   generates_token_for :email_verification, expires_in: 2.days do
@@ -40,5 +46,33 @@ class User < ApplicationRecord
 
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).delete_all
+  end
+
+  after_create { register_as_student }
+
+  def context_model
+    student? ? student : professor
+  end
+
+  def toggle_context
+    update(context: student? ? "professor" : "student")
+  end
+
+  def register_as_teacher
+    if professor.nil?
+      Professor.create!(user: self)
+      true
+    else
+      false
+    end
+  end
+
+  def register_as_student
+    if student.nil?
+      Student.create!(user: self)
+      true
+    else
+      false
+    end
   end
 end

@@ -7,6 +7,12 @@ class SessionsController < ApplicationController
     @sessions = Current.user.sessions.order(created_at: :desc)
   end
 
+  def change_context
+    Current.user.toggle_context
+
+    redirect_to root_path
+  end
+
   def new
     @session = Session.new
   end

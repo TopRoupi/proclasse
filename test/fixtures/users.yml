@@ -4,7 +4,8 @@
 #
 # Table name: users
 #
-#  id              :bigint           not null, primary key
+#  id              :uuid             not null, primary key
+#  context         :integer
 #  email           :string           not null
 #  name            :string           not null
 #  password_digest :string           not null

@@ -42,6 +42,12 @@ class ProNavBarComponent < ApplicationComponent
 
       dropdown.menu(:base_100, class: "rounded-box w-52 shadow") { |menu|
         if user
+          if user.professor.nil?
+            menu.item { link_to("Virar Professor", become_teacher_path, data: { "turbo-method": :post }) }
+          else
+            menu.item { link_to(change_context_path , class: "btn btn-secondary btn-sm", data: { "turbo-method": :post }) { user.context } }
+          end
+
           menu.item { link_to("Logout", Current.session, data: { "turbo-method": :delete }) }
         else
           menu.item { link_to("Login", sign_in_path) }
