@@ -35,10 +35,11 @@ class RoomsController < ApplicationController
 
   # GET /rooms or /rooms.json
   def index
-    if Current.user.student
-      @rooms = Current.user.student.accepted_rooms
-    else
+    if Current.user.professor?
+      # TODO tenant
       @rooms = Room.all
+    else
+      @rooms = Current.user.student.accepted_rooms
     end
   end
 
