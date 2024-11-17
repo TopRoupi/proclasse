@@ -2,22 +2,28 @@
 #
 # Table name: users
 #
-#  id              :uuid             not null, primary key
-#  context         :integer
-#  email           :string           not null
-#  name            :string           not null
-#  password_digest :string           not null
-#  verified        :boolean          default(FALSE), not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id               :uuid             not null, primary key
+#  context          :integer
+#  email            :string           not null
+#  name             :string           not null
+#  password_digest  :string           not null
+#  verified         :boolean          default(FALSE), not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  selected_room_id :uuid
 #
 # Indexes
 #
 #  index_users_on_email  (email) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (selected_room_id => rooms.id)
+#
 class User < ApplicationRecord
   has_one :professor, required: false
   has_one :student, required: false
+  belongs_to :selected_room, class_name: :Room, optional: true
 
   enum :context, [:student, :professor], default: :student
 
@@ -55,7 +61,7 @@ class User < ApplicationRecord
   end
 
   def toggle_context
-    update(context: student? ? "professor" : "student")
+    update!(context: student? ? "professor" : "student")
   end
 
   def register_as_teacher

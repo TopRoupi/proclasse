@@ -17,6 +17,8 @@ gem "phlex-rails"
 gem "phlexy_ui", "~> 0.1.18"
 gem "superform", git: "https://github.com/rubymonolith/superform"
 gem "authentication-zero", "~> 4.0"
+gem "octicons"
+gem "octicons_helper"
 
 
 gem "pg", "~> 1.1"
@@ -45,3 +47,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "phlex-icons", "~> 1.4"

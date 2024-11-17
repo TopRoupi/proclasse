@@ -5,14 +5,10 @@ class Registrations::Form < ApplicationForm
     super(instance)
   end
 
-  def around_template(&)
-    super do
-      yield
-    end
-  end
-
   def view_template(&)
-    render SessionCardComponent.new(title: "Signup") do
+    render SessionCardComponent.new(title: "Sign up") do
+      submit("Sign up", class: "btn btn-primary float-right")
+
       error_messages
 
       labeled(
@@ -51,9 +47,6 @@ class Registrations::Form < ApplicationForm
         ),
         "Confimação Senha"
       )
-
-
-      submit("Signup", class: "btn btn-primary mt-4 ml-auto block")
     end
   end
 end

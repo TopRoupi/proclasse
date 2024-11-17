@@ -14,8 +14,14 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def ensure_professor
+      if !Current.user.professor?
+        redirect_to root_path
+      end
+    end
+
     def set_current_user
-      if session_record = Session.eager_load(user: [:professor, :student]).find_by_id(cookies.signed[:session_token])
+      if session_record = Session.eager_load(user: [:professor, :student, :selected_room]).find_by_id(cookies.signed[:session_token])
         Current.session = session_record
       end
     end

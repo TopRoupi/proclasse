@@ -11,7 +11,7 @@ class ApplicationForm < Superform::Rails::Form
 
   def labeled(component, label = component.field.key.capitalize)
     render(
-      component.field.label(class: "mt-2 form-control w-full max-w-md") {
+      component.field.label(class: "mt-2 form-control w-full") {
         div(class: "label") {
           span(class: "label-text") {
             plain label

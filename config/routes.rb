@@ -11,9 +11,34 @@ Rails.application.routes.draw do
     resource :email_verification, only: [:show, :create]
     resource :password_reset,     only: [:new, :edit, :create, :update]
   end
-  get "home/index"
+  post "sign_in", to: "sessions#create"
 
   post "become_teacher", to: "professors#become_teacher"
+  resources :rooms
+  get  "r/:code", to: "rooms#request_entry", as: :room_request
+  get  "rooms/:id/select", to: "rooms#select", as: :select_room
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  get "home/index"
 
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker

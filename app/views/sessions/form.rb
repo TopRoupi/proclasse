@@ -8,6 +8,8 @@ class Sessions::Form < ApplicationForm
 
   def view_template(&)
     render SessionCardComponent.new(title: "Login") do
+      submit("Login", class: "btn btn-primary float-right")
+
       error_messages
 
       labeled(
@@ -18,8 +20,6 @@ class Sessions::Form < ApplicationForm
         field(:password).input(type: :password, required: true, autocomplete: "current-password"),
         "Senha"
       )
-
-      submit("Logar", class: "btn btn-primary mt-4 ml-auto block")
 
 
       div(class: "flex mt-4 opacity-85") {

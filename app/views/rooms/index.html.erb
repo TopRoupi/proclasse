@@ -1,0 +1,12 @@
+<div class="flex justify-between items-center">
+  <h1 class="text-4xl font-bold">Turmas</h1>
+  <% if Current.user.professor? %>
+    <%= link_to "Nova", new_room_path, class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div id="rooms" class="min-w-full">
+  <% @rooms.each do |room| %>
+    <%= render RoomCardComponent.new(room: room) %>
+  <% end %>
+</div>

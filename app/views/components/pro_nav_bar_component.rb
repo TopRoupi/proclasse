@@ -14,14 +14,22 @@ class ProNavBarComponent < ApplicationComponent
     Navbar(:base_200, class: "shadow-md") { |navbar|
       div(class: "flex max-w-5xl w-full mx-auto") {
         navbar.start {
-          link_to(home_index_path) {
+          link_to(root_path) {
             Button(:ghost, class: "text-xl") {"PC"}
           }
 
+
           Menu(:horizontal, class: "px-1") { |menu|
-            menu.item {
-              Link { "Turmas" }
-            }
+            if user
+              if user.professor?
+                if user.selected_room
+                  menu.item { Link(href: root_path) { "Alunos" } }
+                end
+                menu.item { Link(href: root_path) { "Tarefas" } }
+              else
+                menu.item { Link(href: root_path) { "Tarefas" } }
+              end
+            end
           }
         }
 
@@ -40,12 +48,16 @@ class ProNavBarComponent < ApplicationComponent
         end
       }
 
-      dropdown.menu(:base_100, class: "rounded-box w-52 shadow") { |menu|
+      dropdown.menu(:base_100, class: "rounded-box w-52 shadow z-99") { |menu|
         if user
           if user.professor.nil?
             menu.item { link_to("Virar Professor", become_teacher_path, data: { "turbo-method": :post }) }
           else
-            menu.item { link_to(change_context_path , class: "btn btn-secondary btn-sm", data: { "turbo-method": :post }) { user.context } }
+            menu.item { link_to(change_context_path , class: "btn btn-secondary btn-sm mb-1", data: { "turbo-method": :post }) { user.context } }
+          end
+
+          if user.selected_room
+            menu.item { link_to(select_room_path(user.selected_room, params: {destroy: true}) , class: "mb-1 btn btn-error btn-sm",) { "De-Selecionar Turma" } }
           end
 
           menu.item { link_to("Logout", Current.session, data: { "turbo-method": :delete }) }

@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def change_context
     Current.user.toggle_context
 
-    redirect_to root_path
+    redirect_back fallback_location: root_path
   end
 
   def new
@@ -22,7 +22,11 @@ class SessionsController < ApplicationController
       @session = user.sessions.create!
       cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
 
-      redirect_to root_path, notice: "Signed in successfully"
+      if session[:request_entry]
+        redirect_to room_request_path(session[:request_entry])
+      else
+        redirect_to root_path, notice: "Signed in successfully"
+      end
     else
       redirect_to sign_in_path(email_hint: params[:session][:email]), alert: "That email or password is incorrect"
     end

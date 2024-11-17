@@ -9,7 +9,9 @@ class SessionCardComponent < ApplicationComponent
 
   def view_template
     section(class: "m-auto max-w-md p-10 border border-black/10 rounded-lg shadow-md") {
-      h1(class: "text-3xl font-semibold text-center mb-6") { title }
+      div(class: "inline-flex") {
+        h1(class: "text-3xl font-semibold mb-6 mt-2") { title }
+      }
       yield
     }
   end
