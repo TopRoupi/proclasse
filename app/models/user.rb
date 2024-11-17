@@ -40,7 +40,7 @@ class User < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
 
-  validates :name, presence: true, length: { minimum: 3, maximum: 32}
+  validates :name, presence: true, length: { minimum: 9, maximum: 32}
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }, length: {maximum: 32}
   validates :password, allow_nil: true, length: { minimum: 6 }
 

@@ -2,7 +2,7 @@ class RoomsController < ApplicationController
   before_action :set_room, only: %i[ show edit update destroy ]
   before_action :ensure_professor, only: %i[ new edit update destroy ]
 
-  skip_before_action :authenticate, only: %i[ request_entry ]
+  skip_before_action :authenticate, only: %i[ new_request_entry ]
 
   def select
     if params[:destroy]
@@ -15,7 +15,9 @@ class RoomsController < ApplicationController
     end
   end
 
-  def request_entry
+  def new_request_entry
+    render Rooms::RequestView.new(room_request: nil)
+    return
     # TODO move logic to model
     user = Current.user
     room = Room.find_by(code: params[:code])
@@ -33,7 +35,11 @@ class RoomsController < ApplicationController
 
   # GET /rooms or /rooms.json
   def index
-    @rooms = Room.all
+    if Current.user.student
+      @rooms = Current.user.student.accepted_rooms
+    else
+      @rooms = Room.all
+    end
   end
 
   # GET /rooms/1 or /rooms/1.json
@@ -57,7 +63,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: "Room was successfully created." }
+        format.html { redirect_to rooms_path, notice: "Room was successfully created." }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new, status: :unprocessable_entity }

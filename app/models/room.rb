@@ -19,6 +19,7 @@
 #
 class Room < ApplicationRecord
   belongs_to :professor
+  has_many :room_requests
 
   validates :name, presence: true, length: { minimum: 3, maximum: 32}
   validates :code, presence: true, length: { minimum: 6, maximum: 6}

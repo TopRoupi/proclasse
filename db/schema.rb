@@ -24,10 +24,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_17_130700) do
 
   create_table "room_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.boolean "accepted", default: false, null: false
+    t.string "identifier", null: false
     t.uuid "room_id", null: false
     t.uuid "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_id", "identifier"], name: "index_room_requests_on_room_id_and_identifier", unique: true
     t.index ["room_id"], name: "index_room_requests_on_room_id"
     t.index ["student_id"], name: "index_room_requests_on_student_id"
   end

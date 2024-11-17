@@ -15,9 +15,11 @@ Rails.application.routes.draw do
 
   post "become_teacher", to: "professors#become_teacher"
   resources :rooms
-  get  "r/:code", to: "rooms#request_entry", as: :room_request
+  get  "r/:code", to: "room_requests#new", as: :room_request
   get  "rooms/:id/select", to: "rooms#select", as: :select_room
+  get  "room_request_success", to: "room_requests#success", as: :success_room_request
 
+  resources :room_requests, only: [:new, :create]
 
 
 
