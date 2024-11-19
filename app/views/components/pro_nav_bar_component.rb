@@ -26,9 +26,11 @@ class ProNavBarComponent < ApplicationComponent
                   menu.item { Link(href: room_path(user.selected_room)) { "Alunos" } }
                   menu.item { Link(href: root_path) { "Tarefas" } }
                 end
-                menu.item { Link(href: root_path) { "Desafios" } }
+                menu.item { Link(href: challenges_path) { "Desafios" } }
               else
-                menu.item { Link(href: root_path) { "Tarefas" } }
+                if user.selected_room
+                  menu.item { Link(href: root_path) { "Tarefas" } }
+                end
               end
             end
           }

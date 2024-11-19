@@ -1,0 +1,22 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id           :uuid             not null, primary key
+#  due_date     :date
+#  published_at :date
+#  weight       :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+one:
+  published_at: 2024-11-19
+  due_date: 2024-11-19
+  weight: 1
+
+two:
+  published_at: 2024-11-19
+  due_date: 2024-11-19
+  weight: 1

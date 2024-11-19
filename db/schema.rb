@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_17_130700) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_19_135639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "challenges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "step_id", null: false
+    t.uuid "user_id", null: false
+    t.string "title"
+    t.text "problem"
+    t.integer "difficulty"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["step_id"], name: "index_challenges_on_step_id"
+    t.index ["user_id"], name: "index_challenges_on_user_id"
+  end
+
+  create_table "exercises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_exercises_on_task_id"
+  end
 
   create_table "professors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
@@ -53,11 +72,38 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_17_130700) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "steps", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "exercise_id", null: false
+    t.integer "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_steps_on_exercise_id"
+  end
+
   create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_students_on_user_id"
+  end
+
+  create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "published_at"
+    t.date "due_date"
+    t.integer "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "expected_out"
+    t.string "input"
+    t.boolean "hidden"
+    t.boolean "disabled"
+    t.uuid "challenge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_tests_on_challenge_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -72,11 +118,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_17_130700) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "challenges", "steps"
+  add_foreign_key "challenges", "users"
+  add_foreign_key "exercises", "tasks"
   add_foreign_key "professors", "users"
   add_foreign_key "room_requests", "rooms"
   add_foreign_key "room_requests", "students"
   add_foreign_key "rooms", "professors"
   add_foreign_key "sessions", "users"
+  add_foreign_key "steps", "exercises"
   add_foreign_key "students", "users"
+  add_foreign_key "tests", "challenges"
   add_foreign_key "users", "rooms", column: "selected_room_id"
 end
