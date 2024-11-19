@@ -39,12 +39,14 @@ class RoomsController < ApplicationController
       # TODO tenant
       @rooms = Room.all
     else
-      @rooms = Current.user.student.accepted_rooms
+      @rooms = Current.user.student.rooms
     end
   end
 
   # GET /rooms/1 or /rooms/1.json
   def show
+    @requests = @room.room_requests.where(accepted: false)
+    @students = @room.students.eager_load(:user, :room_requests)
   end
 
   # GET /rooms/new

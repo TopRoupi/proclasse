@@ -15,7 +15,7 @@ class RoomCardComponent < ApplicationComponent
 
       div(class: "flex") {
         if Current.user.professor?
-          Button(modal: room.code, class: "w-fit btn-md btn-ghost") { Remix::QrCodeLine(class: 'w-6') }
+          Button(modal: "qrcode#{room.code}", class: "w-fit btn-md btn-ghost") { Remix::QrCodeLine(class: 'w-6') }
           qrcode_modal
         end
         link_to("Selecionar", select_room_path(room), class: "btn btn-md btn-secondary ml-2")
@@ -24,7 +24,7 @@ class RoomCardComponent < ApplicationComponent
   end
 
   def qrcode_modal
-    Modal(:tap_outside_to_close, id: room.code) { |modal|
+    Modal(:tap_outside_to_close, id: "qrcode#{room.code}") { |modal|
       modal.body {
         h3(class: "text-lg font-bold text-base-content/70") { "QRCODE #{room.name}" }
 

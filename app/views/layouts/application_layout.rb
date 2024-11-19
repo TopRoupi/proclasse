@@ -33,13 +33,20 @@ class ApplicationLayout < ApplicationView
         stylesheet_link_tag :app, "data-turbo-track": "reload"
         javascript_importmap_tags
       end
-      body do
+      body(class: "h-screen") do
         render ProNavBarComponent.new(user: user)
         main(class: "max-w-5xl mx-auto mt-14 px-4") {
           p { notice }
           p { alert }
           yield
         }
+
+      end
+
+      if user&.selected_room
+        div(
+          class: "p-2 fixed bottom-0 right-0 bg-neutral rounded-tl-lg select-none"
+        ) { user.selected_room.name }
       end
     end
   end

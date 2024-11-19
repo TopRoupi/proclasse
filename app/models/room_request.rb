@@ -14,6 +14,7 @@
 #
 #  index_room_requests_on_room_id                 (room_id)
 #  index_room_requests_on_room_id_and_identifier  (room_id,identifier) UNIQUE
+#  index_room_requests_on_room_id_and_student_id  (room_id,student_id) UNIQUE
 #  index_room_requests_on_student_id              (student_id)
 #
 # Foreign Keys
@@ -26,4 +27,5 @@ class RoomRequest < ApplicationRecord
   belongs_to :student
 
   validates :identifier, presence: true, length: { minimum: 9, maximum: 9}, uniqueness: { scope: :room_id }
+  validates :student_id, uniqueness: { scope: :room_id }
 end

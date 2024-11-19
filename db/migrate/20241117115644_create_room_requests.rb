@@ -10,5 +10,6 @@ class CreateRoomRequests < ActiveRecord::Migration[8.0]
     end
 
     add_index :room_requests, [:room_id, :identifier], unique: true
+    add_index :room_requests, [:room_id, :student_id], unique: true
   end
 end

@@ -24,8 +24,9 @@ class ProNavBarComponent < ApplicationComponent
               if user.professor?
                 if user.selected_room
                   menu.item { Link(href: room_path(user.selected_room)) { "Alunos" } }
+                  menu.item { Link(href: root_path) { "Tarefas" } }
                 end
-                menu.item { Link(href: root_path) { "Tarefas" } }
+                menu.item { Link(href: root_path) { "Desafios" } }
               else
                 menu.item { Link(href: root_path) { "Tarefas" } }
               end
@@ -48,7 +49,7 @@ class ProNavBarComponent < ApplicationComponent
         end
       }
 
-      dropdown.menu(:base_100, class: "rounded-box w-52 shadow z-99") { |menu|
+      dropdown.menu(:base_100, class: "rounded-box w-52 shadow z-50") { |menu|
         if user
           if user.professor.nil?
             menu.item { link_to("Virar Professor", become_teacher_path, data: { "turbo-method": :post }) }

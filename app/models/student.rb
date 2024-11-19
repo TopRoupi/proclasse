@@ -19,8 +19,9 @@ class Student < ApplicationRecord
   belongs_to :user
   has_many :room_requests
   has_many :rooms, through: :room_requests
+  has_many :rooms, -> { where(room_requests: {accepted: true}) }, through: :room_requests
 
-  def accepted_rooms
-    rooms.joins(:room_requests).where(room_requests: {accepted: true})
-  end
+  # def accepted_rooms
+  #   rooms.joins(:room_requests).where(room_requests: {accepted: true, student_id: id})
+  # end
 end

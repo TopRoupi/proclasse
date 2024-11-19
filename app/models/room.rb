@@ -20,6 +20,7 @@
 class Room < ApplicationRecord
   belongs_to :professor
   has_many :room_requests
+  has_many :students, -> { joins(:room_requests).where(room_requests: {accepted: true}) }, through: :room_requests
 
   validates :name, presence: true, length: { minimum: 3, maximum: 32}
   validates :code, presence: true, length: { minimum: 6, maximum: 6}

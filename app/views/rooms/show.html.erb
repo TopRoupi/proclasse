@@ -2,6 +2,11 @@
   <h1 class="text-4xl font-bold">Alunos</h1>
 </div>
 
-<% @room.room_requests.each do |room_request| %>
+<% @requests.each do |room_request| %>
   <%= render RoomRequestCardComponent.new(room_request) %>
+<% end %>
+
+
+<% @students.each do |student| %>
+  <%= render StudentCardComponent.new(student, @room) %>
 <% end %>
