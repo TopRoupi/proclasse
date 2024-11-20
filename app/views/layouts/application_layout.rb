@@ -17,6 +17,7 @@ class ApplicationLayout < ApplicationView
     html do
       head do
         title { "ProClasse" }
+        meta(name: "turbo-cache-control", content: "no-cache")
         meta(name: "viewport", content: "width=device-width,initial-scale=1")
         meta(name: "apple-mobile-web-app-capable", content: "yes")
         meta(name: "mobile-web-app-capable", content: "yes")

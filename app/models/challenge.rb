@@ -19,8 +19,11 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Challenge < ApplicationRecord
-  belongs_to :step
   belongs_to :user
+  has_rich_text :problem
 
   enum :difficulty, [:easy, :itermediate, :hard], default: :easy
+
+  validates :title, presence: true, length: { minimum: 6}
+  validates :problem, presence: true, length: { minimum: 60}
 end

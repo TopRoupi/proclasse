@@ -3,9 +3,16 @@ class ApplicationForm < Superform::Rails::Form
 
   # Redefining the base Field class lets us override every field component.
   class Field < Superform::Rails::Form::Field
+    @@classes = "input input-bordered shadow-sm focus:outline-none focus:border-2 shadow-inner"
+
     def input(**attributes)
-      attributes[:class] = "input input-bordered"
+      attributes[:class] =  @@classes
       super(**attributes)
+    end
+
+    def select(*values, **attributes)
+      attributes[:class] =  @@classes
+      super(*values, **attributes)
     end
   end
 
@@ -18,7 +25,11 @@ class ApplicationForm < Superform::Rails::Form
             plain " *" if component.instance_variable_get(:@attributes)[:required]
           }
         }
-        render component
+        if block_given?
+          yield
+        else
+          render component
+        end
       }
     )
   end

@@ -1,5 +1,6 @@
 class Challenges::Form < ApplicationForm
   include Phlex::Rails::Helpers::LinkTo
+  include Phlex::Rails::Helpers::RichTextArea
 
   def initialize(instance)
     super(instance)
@@ -26,16 +27,20 @@ class Challenges::Form < ApplicationForm
       "Título"
     )
 
-    labeled(
-      field(:problem).textarea(
-        required: true,
-      ),
-      "Problema"
-    )
+    # GAMBIS
+      labeled(
+        field(:problem).input(required: true),
+        "Problema"
+      ) {
+        div(class: "bg-white p-2 border border-black/20 rounded shadow-sm") {
+          rich_text_area :challenge, :problem
+        }
+      }
 
     labeled(
       field(:difficulty).select(
-        *Challenge.difficulties.map{|k,v|[k,k]}
+        *Challenge.difficulties.map{|k,v|[k,k]},
+        required: true
       ),
       "Dificuldade"
     )
