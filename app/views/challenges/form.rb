@@ -4,16 +4,23 @@ class Challenges::Form < ApplicationForm
 
   def initialize(instance)
     super(instance)
+
+    if instance.persisted?
+      @action_verb = "Editar"
+    else
+      @action_verb = "Novo"
+    end
+
   end
 
   def view_template(&)
     div(class: "flex justify-between items-center") {
       div(class: "flex items-center") {
-        h1(class: "text-4xl font-bold leading-normal") { "Novo Desafio" }
+        h1(class: "text-4xl font-bold leading-normal") { "#{@action_verb} Desafio" }
       }
       div(class: "flex") {
-        link_to("Cancelar", challenges_path, class: "btn btn-error mr-2")
-        submit("Criar", class: "btn btn-primary")
+        link_to("Cancelar", :back, class: "btn btn-error mr-2")
+        submit(@action_verb, class: "btn btn-primary")
       }
     }
 

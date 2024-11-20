@@ -19,7 +19,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Challenge < ApplicationRecord
-  belongs_to :user
+  acts_as_tenant(:user)
+
   has_rich_text :problem
 
   enum :difficulty, [:easy, :itermediate, :hard], default: :easy

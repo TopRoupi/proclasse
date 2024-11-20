@@ -1,17 +1,14 @@
 <div id="<%= dom_id challenge %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Step:</strong>
-    <%= challenge.step_id %>
-  </p>
-
-  <p class="my-5">
     <strong class="block font-medium mb-1">Title:</strong>
     <%= challenge.title %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Problem:</strong>
-    <%= challenge.problem %>
+    <div class="trix-content">
+      <%= challenge.problem %>
+    </div>
   </p>
 
   <p class="my-5">
