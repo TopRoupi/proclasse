@@ -16,14 +16,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_19_135639) do
   enable_extension "pgcrypto"
 
   create_table "challenges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "step_id", null: false
     t.uuid "user_id", null: false
     t.string "title"
     t.text "problem"
     t.integer "difficulty"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["step_id"], name: "index_challenges_on_step_id"
     t.index ["user_id"], name: "index_challenges_on_user_id"
   end
 
@@ -74,9 +72,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_19_135639) do
 
   create_table "steps", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "exercise_id", null: false
+    t.uuid "challenge_id", null: false
     t.integer "index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_steps_on_challenge_id"
     t.index ["exercise_id"], name: "index_steps_on_exercise_id"
   end
 
@@ -118,7 +118,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_19_135639) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "challenges", "steps"
   add_foreign_key "challenges", "users"
   add_foreign_key "exercises", "tasks"
   add_foreign_key "professors", "users"
@@ -126,6 +125,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_19_135639) do
   add_foreign_key "room_requests", "students"
   add_foreign_key "rooms", "professors"
   add_foreign_key "sessions", "users"
+  add_foreign_key "steps", "challenges"
   add_foreign_key "steps", "exercises"
   add_foreign_key "students", "users"
   add_foreign_key "tests", "challenges"
